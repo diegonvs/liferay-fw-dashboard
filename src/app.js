@@ -20,7 +20,7 @@ const MAX_RESULTS = 300;
 let result = {};
 
 const doSearch = searchJira(`project = LPS AND component = "Forms" AND updated >= startOfYear()`, {
-    maxResults: MAX_RESULTS
+    maxResults: MAX_RESULTS, fields: ["key", "created"], expand: ["changelog"]
 });
 
 // exclude('jira');
