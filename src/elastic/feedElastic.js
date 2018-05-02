@@ -11,6 +11,11 @@ export function exclude(index) {
     });
 };
 
+export function bulk(body, callback) {
+	client.bulk({
+		body: body
+	}, callback);
+};
 
 export function updateId(index, type) {
     client.count({
@@ -31,18 +36,9 @@ export function insert(index, type, obj) {
     });
 };
 
-// index: 'twitter',
-//     type: 'tweets',
-//         body: {
-//     query: {
-//         match: {
-//             body: 'elasticsearch'
-//         }
-//     }
-// }
 export function search(queryObject) {
     client.search(queryObject).then(res => {
-        return res;
+        return res.hits.hits;
     }, err => {
         console.trace(err.message);
     });
