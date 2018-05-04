@@ -3,3 +3,4 @@
 npm-debug.log
 /elasticsearch*
 /kibana*
+/src/connectors/JiraConnector
