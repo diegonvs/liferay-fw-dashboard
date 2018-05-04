@@ -42,7 +42,7 @@ const years = [2018]//[2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 //
 // 		for (let i = 0; i < response.issues.length; i++) {
 // 			body.push({ index:  { _index: 'fwdashboard_analyze', _type: 'issues', _id: response.issues[i].id } });
-// 			let updatedIssue = updateFixPriorityLabel(response.issues[i]);
+// 			let updatedIssue = updateFixPriorityField(response.issues[i]);
 // 			body.push(analyzeHistory(updatedIssue));
 // 		}
 //
@@ -84,7 +84,7 @@ const years = [2018]//[2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 // 		throw new Error(err);
 // 	});
 // }
-function updateFixPriorityLabel(issue) {
+function updateFixPriorityField(issue) {
 	let fields = issue.fields;
 
 	if ("customfield_12523" in fields) {
@@ -127,7 +127,7 @@ client.search({
 
 	hits.forEach(function(issue) {
 		body.push({ index:  { _index: 'fwdashboard_analyze', _type: 'issues', _id: issue._source.id } });
-		let updatedIssue = updateFixPriorityLabel(issue._source);
+		let updatedIssue = updateFixPriorityField(issue._source);
 		body.push(analyzeHistory(updatedIssue));
 	});
 

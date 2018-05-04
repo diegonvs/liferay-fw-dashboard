@@ -1,0 +1,13 @@
+PUT fwdashboard_analyze/_mapping/issues
+{
+	"properties": {
+		"statusHistory.status": {
+			"type": "nested",
+			"properties": {
+				"time_frame": {
+					"type": "date_range"
+				}
+			}
+		}
+	}
+}

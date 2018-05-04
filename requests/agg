@@ -1,0 +1,50 @@
+GET fwdashboard_analyze/_search
+{
+	"aggs" : {
+		"active_bugs" : {
+			"filter" : {
+				"bool": {
+					"should": [{
+						"nested": {
+							"path": "statusHistory.status",
+							"query": {
+								"bool": {
+									"must": [
+										{ "match": { "statusHistory.status.name": "Verified" }},
+										{ "match": { "statusHistory.status.time_frame":  "now-5d/d" }}
+									]
+								}
+							}
+						}
+					},
+					{
+						"nested": {
+							"path": "statusHistory.status",
+							"query": {
+								"bool": {
+									"must": [
+										{ "match": { "statusHistory.status.name": "In Progress" }},
+										{ "match": { "statusHistory.status.time_frame":  "now-5d/d" }}
+									]
+								}
+							}
+						}
+					},
+					{
+						"nested": {
+							"path": "statusHistory.status",
+							"query": {
+								"bool": {
+									"must": [
+										{ "match": { "statusHistory.status.name": "In Review" }},
+										{ "match": { "statusHistory.status.time_frame":  "now-5d/d" }}
+									]
+								}
+							}
+						}
+					}]
+				}
+			}
+		}
+	}
+}
