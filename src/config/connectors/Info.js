@@ -7,7 +7,7 @@ class Info {
         client
             .cluster
             .health({}, function (err, resp, status) {
-                chalk.green(resp);
+                console.log(chalk.green(resp));
             });
     };
 
@@ -21,9 +21,9 @@ class Info {
                 return true;
             }
         });
-    }
+    };
 
     
-}
+};
 
-export default Info;
+module.exports = Info;

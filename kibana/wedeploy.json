@@ -1,0 +1,16 @@
+{
+    "id": "kibana",
+    "image": "docker.elastic.co/kibana/kibana:6.2.4",
+    "volumes": {
+        "data": "/usr/share/kibana/data"
+    },
+    "memory": 1024,
+    "cpu": 2,
+    "port": 5601,
+    "env": {
+        "ELASTICSEARCH_URL": "http://elasticsearch:9200"
+    },
+    "dependencies": [
+        "elasticsearch"
+    ]
+}

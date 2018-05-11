@@ -1,7 +1,5 @@
-import getRandomData from '../misc/DataGenerator';
-import client from '../connectors/ElasticConnector';
-import Info from '../connectors/Info';
-import chalk from 'chalk';
+import client from '../config/connectors/ElasticConnector';
+import Info from '../config/connectors/Info';
 
 export function exclude(index) {
     client.indices.delete({
@@ -48,12 +46,4 @@ export function feed() {
     setInterval(() => {
         insert(getRandomData())
     }, 2000);
-};
-
-export function update() {
-    console.log(chalk.orange('not implemented'));
-};
-
-export function existsId(id) {
-    console.log(chalk.orange('not implemented'));
 };

@@ -1,4 +1,5 @@
-import jira from '../connectors/JiraConnector';
+import jira from '../config/connectors/JiraConnector';
+import { updateFixPriorityField, analyzeHistory } from 'utils';
 
 /**
  * 
@@ -31,7 +32,22 @@ export async function searchJira(jql, optional = {}) {
     } catch (err) {
         console.error(err);
     }
+};
 
+export function insertResult(response) {
+    return new Promise(resolve => {
+        var body = new Array();
+
+        for (let i = 0; i < response.issues.length; i++) {
+            body.push({ index: { _index: 'fwdashboard_analyze', _type: 'issues', _id: response.issues[i].id } });
+            let updatedIssue = updateFixPriorityField(response.issues[i]);
+            body.push(analyzeHistory(updatedIssue));
+        }
+
+        client.bulk({ body: body }, (err, res, status) => {
+            resolve();
+        })
+    });
 };
 
 export async function getIssueProperty(issueNumber, property) {
